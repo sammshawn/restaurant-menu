@@ -43,16 +43,3 @@ pip install django Pillow
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
-```
-
-Then open http://127.0.0.1:8000
-
-## Author
-
-**Samm Shawn**
-- GitHub: [@sammshawn](https://github.com/sammshawn)
-- Email: sammshawn1@gmail.com
-
-## License
-
-MIT
