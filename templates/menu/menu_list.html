@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Menu | Mama Oliech Restaurant{% endblock %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Our Menu</h2>
+        <p class="section-subtitle">Freshly prepared, always delicious</p>
+
+        {% for category in categories %}
+        <div class="category-section">
+            <h3 class="category-title">{{ category.name }}</h3>
+            {% if category.description %}
+                <p class="category-desc">{{ category.description }}</p>
+            {% endif %}
+
+            <div class="dish-grid">
+                {% for dish in category.dishes.all %}
+                <a href="{% url 'menu:dish_detail' dish.pk %}" style="text-decoration:none; color:inherit;">
+                    <div class="dish-card">
+                        {% if dish.image %}
+                            <img src="{{ dish.image.url }}" alt="{{ dish.name }}" class="dish-image">
+                        {% else %}
+                            <div class="dish-image-placeholder">🍲</div>
+                        {% endif %}
+                        <div class="dish-body">
+                            <div class="dish-header">
+                                <h4 class="dish-name">{{ dish.name }}</h4>
+                                {% if dish.is_vegetarian %}<span class="tag tag-veg">🌱 Veg</span>{% endif %}
+                            </div>
+                            <p class="dish-desc">{{ dish.description|truncatewords:12 }}</p>
+                            <p class="dish-price">{{ dish.formatted_price }}</p>
+                            {% if not dish.is_available %}
+                                <span class="tag tag-unavailable">Currently unavailable</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% empty %}
+        <p style="text-align:center;">Menu coming soon.</p>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

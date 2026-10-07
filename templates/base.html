@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mama Oliech Restaurant{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="{% url 'menu:home' %}" class="logo">🍽️ Mama Oliech</a>
+            <ul class="nav-links">
+                <li><a href="{% url 'menu:home' %}">Home</a></li>
+                <li><a href="{% url 'menu:menu_list' %}">Menu</a></li>
+                <li><a href="/admin/" target="_blank">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Mama Oliech Restaurant. All rights reserved.</p>
+            <p>📍 Nairobi • Open Daily 10am – 10pm • 📞 0700 000 000</p>
+        </div>
+    </footer>
+</body>
+</html>

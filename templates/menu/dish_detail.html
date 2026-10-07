@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}{{ dish.name }} | Mama Oliech Restaurant{% endblock %}
+
+{% block content %}
+
+<section class="section">
+    <div class="container">
+        <a href="{% url 'menu:menu_list' %}" style="color:#8B4513; text-decoration:none; font-weight:500;">← Back to menu</a>
+
+        <div class="detail-grid">
+            <div>
+                {% if dish.image %}
+                    <img src="{{ dish.image.url }}" alt="{{ dish.name }}" class="detail-image">
+                {% else %}
+                    <div class="dish-image-placeholder" style="height:420px; border-radius:12px; font-size:5rem;">🍲</div>
+                {% endif %}
+            </div>
+
+            <div>
+                <p class="detail-category">{{ dish.category.name }}</p>
+                <h1 class="detail-name">{{ dish.name }}</h1>
+                <p class="detail-price">{{ dish.formatted_price }}</p>
+
+                {% if dish.is_vegetarian %}
+                    <span class="tag tag-veg">🌱 Vegetarian</span>
+                {% endif %}
+
+                {% if not dish.is_available %}
+                    <span class="tag tag-unavailable">Currently unavailable</span>
+                {% endif %}
+
+                <h3 style="margin-top:24px; color:#8B4513;">Description</h3>
+                <p class="detail-desc">{{ dish.description }}</p>
+
+                <a href="tel:+254700000000" class="btn" style="display:block; text-align:center; margin-top:24px;">📞 Order Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

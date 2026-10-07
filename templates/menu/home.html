@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Home | Mama Oliech Restaurant{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <h1>Authentic Kenyan Cuisine</h1>
+    <p>From sizzling nyama choma to fresh ugali and sukuma wiki — taste the food you grew up with.</p>
+    <a href="{% url 'menu:menu_list' %}" class="btn">View Full Menu</a>
+</section>
+
+{% if featured %}
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Featured Dishes</h2>
+        <p class="section-subtitle">Our most-loved plates</p>
+
+        <div class="dish-grid">
+            {% for dish in featured %}
+            <a href="{% url 'menu:dish_detail' dish.pk %}" style="text-decoration:none; color:inherit;">
+                <div class="dish-card">
+                    {% if dish.image %}
+                        <img src="{{ dish.image.url }}" alt="{{ dish.name }}" class="dish-image">
+                    {% else %}
+                        <div class="dish-image-placeholder">🍲</div>
+                    {% endif %}
+                    <div class="dish-body">
+                        <h3 class="dish-name">{{ dish.name }}</h3>
+                        <p class="dish-category">{{ dish.category.name }}</p>
+                        <p class="dish-price">{{ dish.formatted_price }}</p>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if categories %}
+<section class="section" style="background:white;">
+    <div class="container">
+        <h2 class="section-title">Browse by Category</h2>
+        <p class="section-subtitle">Pick what you're craving</p>
+
+        <div class="category-grid">
+            {% for category in categories %}
+            <div class="category-card">
+                <h3>{{ category.name }}</h3>
+                <p>{{ category.description|default:"Explore our selection" }}</p>
+                <p class="category-count">{{ category.dishes.count }} item{{ category.dishes.count|pluralize }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}
